@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cловник ФДП</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <style type="text/css">
+    body {
+          background-image: url("https://cdn.pixabay.com/photo/2021/04/26/20/53/beachy-head-6209982_1280.jpg");
+          background-size: cover;
+          background-position: center;
+          height: 100%;
+      }
+      .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+      h1{
+          font-size: 48px;
+          color: #2b2b2c;
+          font-family: 'Verdana', sans-serif;
+          font-weight: 100;
+          text-align: center;
+          margin: 50px auto;
+      }
+      h2{
+          font-size: 15px;
+          color: #2b2b2c;
+          font-family: 'Verdana', sans-serif;
+          font-weight: 50;
+          text-align: center;
+      }
+      p{
+          font-size: 48px;
+          color: #2b2b2c;
+          font-family: 'Verdana', sans-serif;
+          font-weight: 50;
+          text-align: center;
+      }
+      form {
+          background: transparent;
+          width: 800px;
+          height: 47px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 50px auto;
+          box-shadow: 0px 8px 20px 0px rgb(0 0 0 / 30%);
+          border-radius: 5px;
+        }
+
+        input {
+          height: 47px;
+          width: 65%;
+          background: FFFFFF;
+          border: 0;
+          font-size: 20px;
+          color: #000;
+          color: #2b2b2c;
+          font-family: 'Verdana', sans-serif;
+          font-weight: 50;
+          border-radius: 5px;
+        }
+
+        button {
+          height: 47px;
+          width: 33%;
+          white-space: nowrap;
+          font-size: 16px;
+          color: #fff;
+          border: 0;
+          cursor: pointer;
+          position: relative;
+          background: #00ad5f;
+          border-radius: 5px;
+          margin-left: 10px;
+        }
+      </style>
+    <script>
+      $( function() {
+        var availableTags = [
+          "accurate",
+"magazine",
+"patron",
+"agigator",
+"behemoth",
+"principal",
+"preservative ",
+"aspirant",
+"list",
+"codex",
+"profane",
+"urbane",
+"fabric",
+"clay",
+"balloon",
+"family",
+"data",
+"doze",
+"resin",
+"actual",
+"artist",
+"cabinet",
+"cursive",
+"insult",
+"marsh",
+"mayor",
+"quarter",
+"silicon",
+"troops",
+"sympathy",
+"servant",
+"scholar",
+"repetition",
+"novel",
+"militia",
+"lunatic",
+"invalid",
+"intelligent",
+"character",
+"bucket",
+"academic",
+"ammunition",
+"cabin",
+"cottage",
+"cymbals",
+"prospect",
+"scenery",
+"specie",
+"velvet",
+"talon"
+        ];
+        $( "#tags" ).autocomplete({
+          source: availableTags
+        });
+      } );
+      </script>
+
+</head>
+
+
+<body background="https://cdn.pixabay.com/photo/2021/04/26/20/53/beachy-head-6209982_1280.jpg">
+</html>
+  <h1>Словник фальшивих друзів перекладача<h1>
+  <h2>Перевірте чи є ваше слово хибним другом перекладача<h2>
+    <form action="{% url 'search_word' %}" method="get">
+        <input type="text" id="tags" name="search_word">
+        <button type="submit">Знайти</button>
+    </form>
+
+    <p>{{ result }}</p>
+</body>
+</html>
