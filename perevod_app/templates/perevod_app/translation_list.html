@@ -1,0 +1,29 @@
+{% extends 'perevod_app/search_word.html' %}
+
+{% block content %}
+<div>
+    <div>
+        <h1>Мій словник</h1>
+        <div>
+            <a href="{% url 'word_create' %}">Додати нові слова</a>
+        </div>
+            
+        {% for word in translation_list %}
+            <table>
+                <tbody>
+                    <tr>
+                        <td>{{word.en}}</td>
+                        <td>{{word.uk}}</td>
+                        <td><a href="{% url 'word_update' word.id %} ">Змінити</a></td>
+                        <td><a href="{% url 'word_delete' word.id %}">Видалити</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+        
+        
+    </div>
+        
+</div>
+
+{% endblock content %}

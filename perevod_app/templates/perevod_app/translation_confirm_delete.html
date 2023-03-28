@@ -1,0 +1,23 @@
+{% extends 'perevod_app/search_word.html' %}
+
+{% block content %}
+
+{% url 'all' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h1 class="mb-5">Видалити слово</h1>
+
+        <p class="h5">Ви впевнені що бажаєте видалити слово?</p>
+        <h3 class="my-5">{{ word.en }}</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} <input type="submit" value="Confirm">
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'all' %}'; return false;"> {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-lg" value="Так" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-lg" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Відміна">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

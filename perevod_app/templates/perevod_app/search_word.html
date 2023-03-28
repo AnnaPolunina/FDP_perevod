@@ -147,11 +147,17 @@
 </html>
   <h1>Словник фальшивих друзів перекладача<h1>
   <h2>Перевірте чи є ваше слово хибним другом перекладача<h2>
-    <form action="{% url 'search_word' %}" method="get">
+    <form action="#" method="get">
         <input type="text" id="tags" name="search_word">
         <button type="submit">Знайти</button>
     </form>
-
+    <div>
+      <a href="{% url 'all' %}">Список існуючих слів</a>
+    </div>
     <p>{{ result }}</p>
+  {% block content %}
+  {% endblock content %}
+    
 </body>
+
 </html>
