@@ -4,18 +4,18 @@
 
 {% url 'all' as list_all %}
 
-<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
-    <div class="col mt-5 text-center">
-        <h1 class="mb-5">Видалити слово</h1>
+<div style="width: 40%; margin: 0 auto;">
+    <div>
+        <h1>Видалити слово</h1>
 
-        <p class="h5">Ви впевнені що бажаєте видалити слово?</p>
-        <h3 class="my-5">{{ word.en }}</h3>
-        <form action="" method="POST">
+        <p>Ви впевнені що бажаєте видалити слово?</p>
+        <h3>{{ word.en }}</h3>
+        <form action="" method="POST" style="width: 60%;">
             {% csrf_token %}
             {% comment %} <input type="submit" value="Confirm">
             <input type="submit" value="Cancel" onclick="window.location='{% url 'all' %}'; return false;"> {% endcomment %}
-            <input type="submit" class="btn btn-primary btn-lg" value="Так" style="margin-right: 30px; margin-top: 30px;">
-            <input type="submit" class="btn btn-danger btn-lg" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Відміна">
+            <input type="submit" value="Так" style="margin-right: 40px; background-color: #00ad5f; color: #fff;">
+            <input type="submit" style="background-color: rgb(230, 47, 47); color: #fff;" onclick="window.location='{{list_all}}'; return false;" value="Відміна">
         </form>
     </div>
 </div>
