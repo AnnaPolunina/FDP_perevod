@@ -1,12 +1,11 @@
-from openpyxl import load_workbook
-import json
+from openpyxl import load_workbook, Workbook
 from django.shortcuts import render
 from .models import Translation
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Translation
+from .models import Translation, ValueState
 
 
 class WordsBaseView(View):
@@ -29,22 +28,40 @@ class WordsDeleteView(WordsBaseView, DeleteView):
 
 def search_word(request):
     user_value  = request.GET.get('search_word')
-    add_words_from_exel()
-    add_words_from_DB_in_exel()
-    json_from_bd = json_value()
-    print(json_from_bd)
+    last_state = ValueState.objects.last()
+    from_bd = Translation.objects.all()
+    excel_list, bd_list = work_lists()
+    if last_state.excel_state < len(excel_list):
+        add_words_from_exel()
+        state_value()
+    elif last_state.bd_state < len(bd_list):
+        add_words_from_DB_in_exel()
+        state_value()
+    elif last_state.bd_state > len(bd_list):
+        new_excel()
+        state_value()
+    elif last_state.excel_state > len(excel_list):
+        Translation.objects.all().delete()
+        add_words_from_exel()
+        #del_bd()
+        state_value()
+    else:
+        state_value()
+
+
+
     try:
         result_BD = Translation.objects.get(en=user_value)
         if result_BD:
             result = '{0}-{1}'.format(result_BD.en, result_BD.uk)
-            return render(request, 'perevod_app/search_word.html', {'result': result, 'json_from_bd':json_from_bd})
+            return render(request, 'perevod_app/search_word.html', {'result': result, 'from_bd':from_bd})
         else:
             result = 'Слово не знайдено'
-        return render(request, 'perevod_app/search_word.html', {'result': result, 'json_from_bd':json_from_bd})
+        return render(request, 'perevod_app/search_word.html', {'result': result, 'from_bd':from_bd})
 
     except:
         result = 'Слово не знайдено'
-        return render(request, 'perevod_app/search_word.html', {'result': result, 'json_from_bd':json_from_bd})
+        return render(request, 'perevod_app/search_word.html', {'result': result, 'from_bd':from_bd})
 
 def add_words_from_exel():
     '''сохранение всех записей с exel в БД'''
@@ -72,20 +89,34 @@ def add_words_from_DB_in_exel():
             sheet.append({'A':word.en, 'B':word.uk})
             wb.save('translations.xlsx')
 
-'''def json_value():
-    bd_value = Translation.objects.all()
-    main_dict = {}
-    for value in bd_value:
-        main_dict[value.en] = value.uk
-    return json.dumps(main_dict)'''
+def work_lists():
+    wb = load_workbook(filename='translations.xlsx')
+    sheet = wb['Sheet1']
+    trans_bd = Translation.objects.all()
+    exel_list =[]
+    bd_list = []
+    for row in sheet.iter_rows(values_only=True):
+        exel_list.append(row[0])
+    for word in trans_bd:
+        bd_list.append(word.en)
+    return exel_list, bd_list
 
-def json_value():
-    bd_value = Translation.objects.all()
-    main_list = []
-    for value in bd_value:
-        main_list.append(value.en)    
-    return main_list
+def state_value():
+    excel_list, bd_list = work_lists()
+    state = ValueState()
+    state.excel_state = len(excel_list)
+    state.bd_state = len(bd_list)
+    state.save()
 
 
+def new_excel():
+    wb = Workbook()
+    sheet = wb.active
+    sheet.title = 'Sheet1'
+    trans_bd = Translation.objects.all()
+
+    for word in trans_bd:
+        sheet.append({'A':word.en, 'B':word.uk})
+        wb.save('translations.xlsx')
 
 

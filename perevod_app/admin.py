@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Translation
+from .models import Translation, ValueState
 
 class TranslationAdmin(admin.ModelAdmin):
     
@@ -14,3 +14,4 @@ class TranslationAdmin(admin.ModelAdmin):
         )
     
 admin.site.register(Translation, TranslationAdmin)
+admin.site.register(ValueState)

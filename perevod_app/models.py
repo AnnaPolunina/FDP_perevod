@@ -23,3 +23,13 @@ class Translation(models.Model):
         ordering = ['id']
         verbose_name = u'Переклад'
         verbose_name_plural = u'Переклади'
+
+class ValueState(models.Model):
+    excel_state = models.DecimalField(
+        max_digits=1000000, 
+        decimal_places=2, 
+        )
+    bd_state = models.DecimalField(
+        max_digits=1000000, 
+        decimal_places=2, 
+        )

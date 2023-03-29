@@ -2,10 +2,17 @@
 <html>
   <head>
     <title>Cловник ФДП</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src=  
+"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src=  
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script>  
+    
+    <link href=  
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />  
     <style type="text/css">
     body {
           background-image: url("https://cdn.pixabay.com/photo/2021/04/26/20/53/beachy-head-6209982_1280.jpg");
@@ -80,65 +87,18 @@
         }
       </style>
 
-    <script>
-      $( function() {
-        var availableTags = [
-          "accurate",
-  "magazine",
-  "patron",
-  "agigator",
-  "behemoth",
-  "principal",
-  "preservative ",
-  "aspirant",
-  "list",
-  "codex",
-  "profane",
-  "urbane",
-  "fabric",
-  "clay",
-  "balloon",
-  "family",
-  "data",
-  "doze",
-  "resin",
-  "actual",
-  "artist",
-  "cabinet",
-  "cursive",
-  "insult",
-  "marsh",
-  "mayor",
-  "quarter",
-  "silicon",
-  "troops",
-  "sympathy",
-  "servant",
-  "scholar",
-  "repetition",
-  "novel",
-  "militia",
-  "lunatic",
-  "invalid",
-  "intelligent",
-  "character",
-  "bucket",
-  "academic",
-  "ammunition",
-  "cabin",
-  "cottage",
-  "cymbals",
-  "prospect",
-  "scenery",
-  "specie",
-  "velvet",
-  "talon"
-        ];
-        $( "#tags" ).autocomplete({
-          source: availableTags
-        });
-      } );
-    </script>
+<script>
+  $( function() {
+    var availableTags = [
+        {% for word in from_bd %}
+            "{{ word.en }}",
+        {% endfor %}
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
 
   </head>
 

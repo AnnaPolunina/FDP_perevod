@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='search_word/')),
     path('search_word/', include('perevod_app.urls')),
+    
 ]
